@@ -41,69 +41,72 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <!-- Confirmación global para formularios -->
-        <script>
-            document.addEventListener('submit', function (event) {
-                const form = event.target.closest('form[data-confirm]');
+        <!-- Confirmación global para formularios -->
+<script>
+    document.addEventListener('submit', function (event) {
+        const form = event.target.closest('form[data-confirm]');
 
-                if (!form || form.dataset.sending === 'true') {
-                    return;
-                }
+        if (!form || form.dataset.sending === 'true') {
+            return;
+        }
 
-                event.preventDefault();
+        event.preventDefault();
 
-                const title =
-                    form.dataset.confirmTitle || '¿Confirmar acción?';
+        const title =
+            form.dataset.confirmTitle || '¿Confirmar acción?';
 
-                const text =
-                    form.dataset.confirmText ||
-                    'Confirma que deseas continuar.';
+        const text =
+            form.dataset.confirmText ||
+            'Confirma que deseas continuar.';
 
-                const confirmText =
-                    form.dataset.confirmButton || 'Sí, continuar';
+        const confirmText =
+            form.dataset.confirmButton || 'Sí, continuar';
 
-                // Respaldo en caso de que SweetAlert no cargue
-                if (typeof Swal === 'undefined') {
-                    if (window.confirm(text)) {
-                        form.dataset.sending = 'true';
-                        form.submit();
-                    }
+        // Respaldo por si SweetAlert2 no carga
+        if (typeof Swal === 'undefined') {
+            if (window.confirm(text)) {
+                form.dataset.sending = 'true';
+                form.submit();
+            }
 
-                    return;
-                }
+            return;
+        }
 
-                Swal.fire({
-                    title: title,
-                    text: text,
-                    icon: 'warning',
+        Swal.fire({
+            title: title,
+            text: text,
+            icon: 'warning',
 
-                    showCancelButton: true,
-                    reverseButtons: true,
-                    focusCancel: true,
-                    allowOutsideClick: false,
-                    allowEscapeKey: true,
+            showCancelButton: true,
+            reverseButtons: true,
+            focusCancel: true,
 
-                    confirmButtonText: confirmText,
-                    cancelButtonText: 'Cancelar',
+            allowOutsideClick: false,
+            allowEscapeKey: true,
 
-                    buttonsStyling: false,
+            confirmButtonText: confirmText,
+            cancelButtonText: 'Cancelar',
 
-                    customClass: {
-                        popup: 'taskmaster-modal',
-                        title: 'taskmaster-modal-title',
-                        htmlContainer: 'taskmaster-modal-text',
-                        actions: 'taskmaster-modal-actions',
-                        confirmButton:
-                            'taskmaster-button taskmaster-button-danger',
-                        cancelButton:
-                            'taskmaster-button taskmaster-button-cancel'
-                    }
-                }).then(function (result) {
-                    if (result.isConfirmed) {
-                        form.dataset.sending = 'true';
-                        form.submit();
-                    }
-                });
-            });
-        </script>
+            // Colores de los botones
+            confirmButtonColor: '#ef4444',
+            cancelButtonColor: '#6b7280',
+
+            // IMPORTANTE: permite que SweetAlert dé
+            // tamaño, separación y diseño a los botones
+            buttonsStyling: true,
+
+            customClass: {
+                popup: 'taskmaster-modal',
+                title: 'taskmaster-modal-title',
+                htmlContainer: 'taskmaster-modal-text'
+            }
+        }).then(function (result) {
+            if (result.isConfirmed) {
+                form.dataset.sending = 'true';
+                form.submit();
+            }
+        });
+    });
+</script>
     </body>
 </html>
