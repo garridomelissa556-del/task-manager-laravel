@@ -1,59 +1,167 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# ✅ Task Manager - Laravel
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplicación web para la **gestión de tareas personales y académicas**, desarrollada con Laravel.
 
-## About Laravel
+El sistema permite que cada usuario administre sus propias tareas mediante una interfaz web, incorporando autenticación, verificación de correo electrónico, etiquetas, prioridades, estados, filtros y una papelera para recuperar tareas eliminadas.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🚀 Funcionalidades
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+* Registro e inicio de sesión de usuarios.
+* Verificación de correo electrónico.
+* Recuperación y restablecimiento de contraseña.
+* Gestión del perfil del usuario.
+* Creación, visualización, edición y eliminación de tareas.
+* Estados de tarea: **Pendiente, En progreso y Completada**.
+* Prioridades: **Baja, Media y Alta**.
+* Fechas límite con validación para impedir fechas anteriores al día actual.
+* Creación y administración de etiquetas personalizadas.
+* Relación de múltiples etiquetas con una tarea.
+* Búsqueda de tareas por título o descripción.
+* Filtros por estado, prioridad y etiqueta.
+* Ordenamiento por fecha límite, prioridad o fecha de creación.
+* Paginación de resultados.
+* Estadísticas de tareas totales y completadas.
+* Papelera mediante Soft Deletes.
+* Restauración de tareas eliminadas.
+* Eliminación definitiva desde la papelera.
+* Control de acceso para impedir que un usuario consulte o modifique tareas pertenecientes a otro usuario.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🛠️ Tecnologías utilizadas
 
-## Learning Laravel
+* PHP 8.2+
+* Laravel 12
+* Laravel Breeze
+* Blade
+* Tailwind CSS
+* Alpine.js
+* Vite
+* Eloquent ORM
+* SQLite
+* HTML
+* CSS
+* JavaScript
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## 🔐 Seguridad
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+El sistema utiliza el sistema de autenticación de Laravel y protege las funcionalidades principales mediante middleware de autenticación y verificación de correo.
 
-## Laravel Sponsors
+Cada tarea y etiqueta pertenece a un usuario específico. Las operaciones sobre estos recursos verifican el propietario para evitar que otros usuarios puedan consultar o modificar información que no les pertenece.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Las contraseñas son gestionadas mediante el sistema de hashing proporcionado por Laravel.
 
-### Premium Partners
+## 🗂️ Gestión de tareas
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Cada tarea puede almacenar:
 
-## Contributing
+* Título.
+* Descripción.
+* Estado.
+* Prioridad.
+* Fecha límite.
+* Una o varias etiquetas.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+El sistema incorpora validaciones tanto para la información ingresada como para las relaciones entre usuarios, tareas y etiquetas.
 
-## Code of Conduct
+## 🔎 Búsqueda y filtros
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+El dashboard permite localizar y organizar tareas mediante:
 
-## Security Vulnerabilities
+* Búsqueda por título o descripción.
+* Estado.
+* Prioridad.
+* Etiqueta.
+* Fecha límite.
+* Orden de prioridad.
+* Tareas creadas recientemente.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Esto permite administrar una cantidad mayor de tareas sin depender únicamente de un listado cronológico.
 
-## License
+## 🗑️ Papelera
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Las tareas utilizan **Soft Deletes**, por lo que al eliminarlas inicialmente no desaparecen de forma permanente.
+
+Desde la papelera el usuario puede:
+
+* Restaurar una tarea.
+* Eliminarla definitivamente.
+
+## ⚙️ Instalación
+
+### 1. Clonar el repositorio
+
+```bash
+git clone https://github.com/garridomelissa556-del/task-manager-laravel.git
+cd task-manager-laravel
+```
+
+### 2. Instalar dependencias de PHP
+
+```bash
+composer install
+```
+
+### 3. Instalar dependencias de frontend
+
+```bash
+npm install
+```
+
+### 4. Crear el archivo de configuración
+
+```bash
+cp .env.example .env
+```
+
+En Windows también puede copiarse manualmente `.env.example` y renombrarlo como `.env`.
+
+### 5. Generar la clave de la aplicación
+
+```bash
+php artisan key:generate
+```
+
+### 6. Crear y configurar la base de datos
+
+Configure la conexión correspondiente dentro del archivo `.env`.
+
+Después ejecute:
+
+```bash
+php artisan migrate
+```
+
+### 7. Compilar los recursos frontend
+
+Para desarrollo:
+
+```bash
+npm run dev
+```
+
+### 8. Iniciar Laravel
+
+```bash
+php artisan serve
+```
+
+La aplicación estará disponible normalmente en:
+
+```text
+http://127.0.0.1:8000
+```
+
+## 📧 Verificación de correo
+
+El proyecto incorpora verificación de correo electrónico mediante Laravel.
+
+Para utilizar el envío real de correos es necesario configurar un servicio de correo en las variables `MAIL_*` del archivo `.env`.
+
+Las credenciales reales nunca deben almacenarse directamente en GitHub.
+
+## 🎯 Objetivo del proyecto
+
+El proyecto busca implementar una aplicación web completa de gestión de tareas aplicando conceptos de desarrollo backend y frontend, autenticación, autorización, persistencia de datos, relaciones entre modelos, validación de información y diseño de interfaces utilizando el ecosistema Laravel.
+
+---
+
+Desarrollado con **Laravel, PHP y Tailwind CSS**.
