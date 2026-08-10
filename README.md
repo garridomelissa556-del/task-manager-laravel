@@ -4,6 +4,28 @@ Aplicación web para la **gestión de tareas personales y académicas**, desarro
 
 El sistema permite que cada usuario administre sus propias tareas mediante una interfaz web, incorporando autenticación, verificación de correo electrónico, etiquetas, prioridades, estados, filtros y una papelera para recuperar tareas eliminadas.
 
+## 🖥️ Vista del sistema
+
+### Dashboard
+
+![Dashboard del sistema](screenshots/dashboard.png)
+
+### Gestión de tareas
+
+![Crear tarea](screenshots/crear-tarea.png)
+
+### Gestión de etiquetas
+
+![Gestión de etiquetas](screenshots/etiquetas.png)
+
+### Papelera
+
+![Papelera de tareas](screenshots/papelera.png)
+
+### Inicio de sesión
+
+![Inicio de sesión](screenshots/login.png)
+
 ## 🚀 Funcionalidades
 
 * Registro e inicio de sesión de usuarios.
@@ -15,37 +37,37 @@ El sistema permite que cada usuario administre sus propias tareas mediante una i
 * Prioridades: **Baja, Media y Alta**.
 * Fechas límite con validación para impedir fechas anteriores al día actual.
 * Creación y administración de etiquetas personalizadas.
-* Relación de múltiples etiquetas con una tarea.
+* Asignación de múltiples etiquetas a una tarea.
 * Búsqueda de tareas por título o descripción.
 * Filtros por estado, prioridad y etiqueta.
 * Ordenamiento por fecha límite, prioridad o fecha de creación.
 * Paginación de resultados.
 * Estadísticas de tareas totales y completadas.
-* Papelera mediante Soft Deletes.
+* Papelera mediante **Soft Deletes**.
 * Restauración de tareas eliminadas.
 * Eliminación definitiva desde la papelera.
 * Control de acceso para impedir que un usuario consulte o modifique tareas pertenecientes a otro usuario.
 
 ## 🛠️ Tecnologías utilizadas
 
-* PHP 8.2+
-* Laravel 12
-* Laravel Breeze
-* Blade
-* Tailwind CSS
-* Alpine.js
-* Vite
-* Eloquent ORM
-* SQLite
+* **PHP 8.2+**
+* **Laravel 12**
+* **Laravel Breeze**
+* **Blade**
+* **Tailwind CSS**
+* **Alpine.js**
+* **Vite**
+* **Eloquent ORM**
+* **SQLite**
 * HTML
 * CSS
 * JavaScript
 
 ## 🔐 Seguridad
 
-El sistema utiliza el sistema de autenticación de Laravel y protege las funcionalidades principales mediante middleware de autenticación y verificación de correo.
+El sistema utiliza el mecanismo de autenticación de Laravel y protege las funcionalidades principales mediante middleware de autenticación y verificación de correo electrónico.
 
-Cada tarea y etiqueta pertenece a un usuario específico. Las operaciones sobre estos recursos verifican el propietario para evitar que otros usuarios puedan consultar o modificar información que no les pertenece.
+Cada tarea y etiqueta pertenece a un usuario específico. Las operaciones sobre estos recursos verifican su propietario para evitar que otros usuarios puedan consultar o modificar información que no les pertenece.
 
 Las contraseñas son gestionadas mediante el sistema de hashing proporcionado por Laravel.
 
@@ -60,7 +82,7 @@ Cada tarea puede almacenar:
 * Fecha límite.
 * Una o varias etiquetas.
 
-El sistema incorpora validaciones tanto para la información ingresada como para las relaciones entre usuarios, tareas y etiquetas.
+El sistema incorpora validaciones para garantizar la integridad de la información y controlar las relaciones entre usuarios, tareas y etiquetas.
 
 ## 🔎 Búsqueda y filtros
 
@@ -72,18 +94,24 @@ El dashboard permite localizar y organizar tareas mediante:
 * Etiqueta.
 * Fecha límite.
 * Orden de prioridad.
-* Tareas creadas recientemente.
+* Fecha de creación.
 
-Esto permite administrar una cantidad mayor de tareas sin depender únicamente de un listado cronológico.
+Estas herramientas facilitan la administración de múltiples tareas y permiten al usuario localizar rápidamente la información que necesita.
+
+## 🏷️ Etiquetas
+
+Los usuarios pueden crear y administrar etiquetas personalizadas para clasificar sus tareas.
+
+Una tarea puede tener múltiples etiquetas, permitiendo organizar la información de acuerdo con diferentes categorías o contextos.
 
 ## 🗑️ Papelera
 
-Las tareas utilizan **Soft Deletes**, por lo que al eliminarlas inicialmente no desaparecen de forma permanente.
+Las tareas utilizan **Soft Deletes**, por lo que al eliminarlas inicialmente no desaparecen permanentemente de la base de datos.
 
 Desde la papelera el usuario puede:
 
-* Restaurar una tarea.
-* Eliminarla definitivamente.
+* Restaurar una tarea eliminada.
+* Eliminar una tarea definitivamente.
 
 ## ⚙️ Instalación
 
@@ -94,25 +122,27 @@ git clone https://github.com/garridomelissa556-del/task-manager-laravel.git
 cd task-manager-laravel
 ```
 
-### 2. Instalar dependencias de PHP
+### 2. Instalar las dependencias de PHP
 
 ```bash
 composer install
 ```
 
-### 3. Instalar dependencias de frontend
+### 3. Instalar las dependencias del frontend
 
 ```bash
 npm install
 ```
 
-### 4. Crear el archivo de configuración
+### 4. Crear el archivo de entorno
+
+En Linux/macOS:
 
 ```bash
 cp .env.example .env
 ```
 
-En Windows también puede copiarse manualmente `.env.example` y renombrarlo como `.env`.
+En Windows puede copiarse manualmente `.env.example` y renombrarlo como `.env`.
 
 ### 5. Generar la clave de la aplicación
 
@@ -120,11 +150,11 @@ En Windows también puede copiarse manualmente `.env.example` y renombrarlo como
 php artisan key:generate
 ```
 
-### 6. Crear y configurar la base de datos
+### 6. Configurar la base de datos
 
 Configure la conexión correspondiente dentro del archivo `.env`.
 
-Después ejecute:
+Después ejecute las migraciones:
 
 ```bash
 php artisan migrate
@@ -132,13 +162,11 @@ php artisan migrate
 
 ### 7. Compilar los recursos frontend
 
-Para desarrollo:
-
 ```bash
 npm run dev
 ```
 
-### 8. Iniciar Laravel
+### 8. Iniciar el servidor
 
 ```bash
 php artisan serve
@@ -150,17 +178,25 @@ La aplicación estará disponible normalmente en:
 http://127.0.0.1:8000
 ```
 
-## 📧 Verificación de correo
+## 📧 Verificación de correo electrónico
 
 El proyecto incorpora verificación de correo electrónico mediante Laravel.
 
-Para utilizar el envío real de correos es necesario configurar un servicio de correo en las variables `MAIL_*` del archivo `.env`.
+Para utilizar el envío real de correos es necesario configurar un servicio SMTP mediante las variables `MAIL_*` del archivo `.env`.
 
-Las credenciales reales nunca deben almacenarse directamente en GitHub.
+Las credenciales privadas y variables sensibles no deben almacenarse directamente en el repositorio.
+
+## 📄 Documentación
+
+El repositorio incluye el archivo:
+
+`INFORME FINAL-PROYECTO.pdf`
+
+Este documento contiene información adicional relacionada con el desarrollo y documentación del proyecto.
 
 ## 🎯 Objetivo del proyecto
 
-El proyecto busca implementar una aplicación web completa de gestión de tareas aplicando conceptos de desarrollo backend y frontend, autenticación, autorización, persistencia de datos, relaciones entre modelos, validación de información y diseño de interfaces utilizando el ecosistema Laravel.
+Desarrollar una aplicación web completa de gestión de tareas aplicando conceptos de desarrollo **backend y frontend**, autenticación, autorización, persistencia de datos, relaciones entre modelos, validación de información y diseño de interfaces utilizando el ecosistema Laravel.
 
 ---
 
